@@ -183,7 +183,6 @@ export default class CharityNavigatorData extends LightningElement {
 			const recordInput = { fields };
 			updateRecord(recordInput)
 			.then(() => {
-				getRecordNotifyChange([{recordId: this.recordId}]);
 				this.dispatchEvent(
 					new ShowToastEvent({
 						title: 'Success',
@@ -191,6 +190,7 @@ export default class CharityNavigatorData extends LightningElement {
 						variant: 'success'
 					})
 				);
+				getRecordNotifyChange([{recordId: this.recordId}]);
 			})
 			.catch(error => {
 				let message = 'Unknown error';

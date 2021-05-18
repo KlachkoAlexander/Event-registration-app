@@ -3,7 +3,9 @@
     <fullName>RulingDate__c</fullName>
     <externalId>false</externalId>
     <label>Ruling Date</label>
+    <length>255</length>
     <required>false</required>
     <trackFeedHistory>false</trackFeedHistory>
-    <type>Date</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
