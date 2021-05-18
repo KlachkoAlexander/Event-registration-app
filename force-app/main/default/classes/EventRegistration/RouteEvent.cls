@@ -14,6 +14,12 @@ public without sharing class RouteEvent extends RestRoute {
 			String limitQuery = ' LIMIT ' + String.valueOf(pageSize);
 			if (String.isNotBlank(params.get('pageSize'))) {
 				pageSize = Integer.valueOf(EncodingUtil.urlEncode(params.get('pageSize'), 'UTF-8'));
+				if (pageSize < 1 || pageSize > 1000) {
+					List<RestRouteError.RestException> errs = new List<RestRouteError.RestException>{ 
+						new RestRouteError.RestException('Page size can be from 1 to 1000', 'BAD_REQUEST', 400)
+					};
+					return errs;
+				}
 				limitQuery = ' LIMIT ' + params.get('pageSize');
 			}
 			String offset = '';
@@ -23,27 +29,27 @@ public without sharing class RouteEvent extends RestRoute {
 			String condition = '';
 			if (String.isNotBlank(params.get('Id'))) {
 				recordId = EncodingUtil.urlEncode(params.get('Id'), 'UTF-8');
-				condition = ' Id = :recordId AND ';
+				condition += ' Id = :recordId AND ';
 			}
 			if (String.isNotBlank(params.get('startDate'))) {
 				Date startDate = Date.valueOf(EncodingUtil.urlEncode(params.get('startDate'), 'UTF-8'));
-				condition = ' StartDate__c >= :startDate AND ';
+				condition += ' StartDate__c >= :startDate AND ';
 			}
 			if (String.isNotBlank(params.get('endDate'))) {
 				Date endDate = Date.valueOf(EncodingUtil.urlEncode(params.get('endDate'), 'UTF-8'));
-				condition = ' EndDate__c >= :endDate AND ';
+				condition += ' EndDate__c <= :endDate AND ';
 			}
 			if (String.isNotBlank(params.get('name'))) {
 				String name = EncodingUtil.urlEncode(params.get('name'), 'UTF-8');
-				condition = ' Name = :name AND ';
+				condition += ' Name = :name AND ';
 			}
 			if (String.isNotBlank(params.get('provider'))) {
 				String provider = EncodingUtil.urlEncode(params.get('provider'), 'UTF-8');
-				condition = ' Provider__c = :provide AND ';
+				condition += ' Provider__c = :provider AND ';
 			}
 			if (String.isNotBlank(params.get('status'))) {
 				String status = EncodingUtil.urlEncode(params.get('status'), 'UTF-8');
-				condition = ' Status__c = :status AND ';
+				condition += ' Status__c = :status AND ';
 			}
 			condition = condition.removeEnd('AND ');
 			condition = String.isNotBlank(condition) ? (' WHERE ' +  condition) : ' ';
