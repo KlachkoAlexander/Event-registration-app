@@ -48,9 +48,6 @@ public without sharing class RouteEvent extends RestRoute {
 			condition = condition.removeEnd('AND ');
 			condition = String.isNotBlank(condition) ? (' WHERE ' +  condition) : ' ';
 			List<Event__c> events = Database.query(sql + condition +  limitQuery + offset);
-			System.Debug('query=' + sql + condition +  limitQuery + offset);
-			System.Debug('events=' + events.size());
-			System.Debug('events=' + events);
 			if (String.isNotBlank(recordId)) {
 				if (!events.isEmpty()) {
 					RestContext.response.statusCode = 200;
@@ -80,5 +77,5 @@ public without sharing class RouteEvent extends RestRoute {
 			response = errs;
 		}
 		return response;
-    }
+	}
 }

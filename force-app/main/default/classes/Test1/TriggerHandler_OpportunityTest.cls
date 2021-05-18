@@ -1,7 +1,7 @@
 @IsTest
 public with sharing class TriggerHandler_OpportunityTest {
 	@IsTest
-	static void closeOpportunity() {
+	public static void closeOpportunity() {
 		Date today = Date.today();
 		List<Account> accounts = new List<Account> {
 			new Account(Name = 'Account 1'),

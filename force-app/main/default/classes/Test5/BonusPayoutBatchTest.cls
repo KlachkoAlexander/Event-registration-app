@@ -12,7 +12,6 @@ public with sharing class BonusPayoutBatchTest {
 		};
 		insert bonuses;
 		List<Bonus__c> b = [SELECT Id FROM Bonus__c];
-		System.Debug('b===' + b.size());
 		BonusPayout__c bonusPayout = new BonusPayout__c();
 		bonusPayout.Bonus__c = bonuses[4].Id;
 		bonusPayout.Date__c = Date.today().toStartOfMonth();

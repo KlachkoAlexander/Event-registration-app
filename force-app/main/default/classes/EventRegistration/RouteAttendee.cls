@@ -1,9 +1,10 @@
 public without sharing class RouteAttendee extends RestRoute {
-    public override Object doGet() {
+	public override Object doGet() {
 		Map<String, String> params = RestContext.request.params;
 		String recordId = '';
 		Object response;
 		try {
+			System.Debug('paramsparams=' + params);
 			if (String.isNotBlank(params.get('Id'))) {
 				recordId = EncodingUtil.urlEncode(params.get('Id'), 'UTF-8');
 			}
@@ -40,12 +41,12 @@ public without sharing class RouteAttendee extends RestRoute {
 			response = errs;
 		}
 		return response;
-    }
+	}
 	public override Object doPost() {
 		RestRequest req = RestContext.request;
 		Blob jsonBlob = req.requestBody;
 		Object response;
-    	String jsonString = jsonBlob.toString();
+		String jsonString = jsonBlob.toString();
 		Map<String, String> keyToField = new Map<String, String> {
 			'accountId' => 'Account__c',
 			'attendanceStatus' => 'AttendanceStatus__c',
@@ -67,6 +68,7 @@ public without sharing class RouteAttendee extends RestRoute {
 			jsonString = jsonString.replaceAll(regExp, fieldName);
 		}
 		Attendee__c attendee = (Attendee__c)JSON.deserialize(jsonString, Attendee__c.class);
+		
 		Boolean isUpdate = false;
 		if (String.isNotBlank(attendee.Id)) {
 			isUpdate = true;

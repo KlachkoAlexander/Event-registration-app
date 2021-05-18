@@ -4,7 +4,6 @@ public with sharing class TriggerHandler_Opportunity {
 		for (Opportunity opp : opportunities) {
 			accountIds.add(opp.AccountId);
 		}
-		System.Debug(accountIds);
 		Map<Id, Account> idToAccount = new Map<Id, Account>([
 			SELECT Id, CustomField__c
 			FROM Account
@@ -17,8 +16,6 @@ public with sharing class TriggerHandler_Opportunity {
 				opp.StageName = 'Closed';
 				opp.RecordTypeId = recordTypeRenewalId;
 			}
-			System.Debug('opp.AccountId=' + opp.AccountId);
-			System.Debug('2=' + idToAccount.containsKey(opp.AccountId));
 			if (idToAccount.containsKey(opp.AccountId)) {
 				opp.CustomField__c = idToAccount.get(opp.AccountId).CustomField__c;
 			}

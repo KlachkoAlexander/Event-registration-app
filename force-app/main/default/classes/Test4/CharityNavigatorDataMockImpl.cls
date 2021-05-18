@@ -20,14 +20,14 @@ public with sharing class CharityNavigatorDataMockImpl implements HttpCalloutMoc
 	public CharityNavigatorDataMockImpl(String body) {
 		this(DEFAULT_CODE, DEFAULT_STATUS, body, DEFAULT_HEADERS);
 	}
-    public HTTPResponse respond(HTTPRequest req) {
-        HttpResponse res = new HttpResponse();
-        res.setBody(this.body);
-        res.setStatusCode(this.code);
+	public HTTPResponse respond(HTTPRequest req) {
+		HttpResponse res = new HttpResponse();
+		res.setBody(this.body);
+		res.setStatusCode(this.code);
 		res.setStatus(this.status);
 		for (String key : this.responseHeaders.keySet()) {
 			res.setHeader(key, this.responseHeaders.get(key));
 		}
-        return res;
-    }
+		return res;
+	}
 }

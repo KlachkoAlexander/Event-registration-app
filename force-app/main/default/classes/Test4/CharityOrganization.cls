@@ -338,15 +338,15 @@ public class CharityOrganization {
 	}
 	
 
-    private static List<CharityOrganization> arrayOfJSON2Apex(System.JSONParser p) {
-        List<CharityOrganization> res = new List<CharityOrganization>();
-        if (p.getCurrentToken() == null) {
+	private static List<CharityOrganization> arrayOfJSON2Apex(System.JSONParser p) {
+		List<CharityOrganization> res = new List<CharityOrganization>();
+		if (p.getCurrentToken() == null) {
 			p.nextToken();
 		}
-        while (p.nextToken() != System.JSONToken.END_ARRAY) {
-            res.add(new CharityOrganization(p));
-        }
-        return res;
-    }
+		while (p.nextToken() != System.JSONToken.END_ARRAY) {
+			res.add(new CharityOrganization(p));
+		}
+		return res;
+	}
 
 }
