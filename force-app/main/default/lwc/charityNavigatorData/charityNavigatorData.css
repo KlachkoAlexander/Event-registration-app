@@ -1,0 +1,26 @@
+.div-cell:hover {
+	background-color: #FAFAF9;
+	cursor: pointer;
+}
+.div-cell {
+	border: 1px solid #DDDBDA;
+}
+.helpText {
+	display:flex;
+	position:absolute;
+}
+.margin40 {
+	margin-left:40px
+}
+.margin70 {
+	margin-left:70px
+}
+.margin150 {
+	margin-left:150px
+}
+.margin55 {
+	margin-left:55px
+}
+.margin80 {
+	margin-left:80px
+}

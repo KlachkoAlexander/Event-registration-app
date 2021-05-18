@@ -1,0 +1,131 @@
+<template>
+	<lightning-card title="Charity Navigator Data" icon-name="custom:custom63">
+		<div class="slds-var-m-around_medium">
+			<lightning-layout
+				vertical-align="end"
+				class="slds-var-m-bottom_small"
+			>
+				<lightning-layout-item size="6">
+					<lightning-helptext content={helpSearch} class="helpText margin40"></lightning-helptext>
+					<lightning-input
+						type="search"
+						onchange={handleSearchKey}
+						label="Search"
+						value={searchKey}
+					></lightning-input>
+				</lightning-layout-item>
+				<lightning-layout-item size="6">
+					<lightning-helptext content={helpSearchType} class="helpText margin70"></lightning-helptext>
+					<lightning-combobox
+						name="searchType"
+						label="Search Type"
+						value={searchTypeValue}
+						options={searchTypeOptions}
+						onchange={handleSearchType}>
+					</lightning-combobox>
+				</lightning-layout-item>
+			</lightning-layout>
+			<lightning-layout
+				vertical-align="end"
+				class="slds-var-m-bottom_small"
+			>
+				<lightning-layout-item size="6">
+					<lightning-helptext content={helpRated} class="helpText margin40"></lightning-helptext>
+					<lightning-radio-group name="ratedGroup"
+						label="Rated"
+						options={ratedOptions}
+						value={ratedValue}
+						onchange={handleRated}
+						type="button">
+					</lightning-radio-group>
+				</lightning-layout-item>
+				<lightning-layout-item size="6">
+					<lightning-helptext content={helpFundraisingOrgs} class="helpText margin150"></lightning-helptext>
+					<lightning-radio-group name="fundraisingGroup"
+						label="Fundraising Organizations"
+						options={fundraisingOrgsOptions}
+						value={fundraisingOrgsValue}
+						onchange={handleFundraisingOrgs}
+						type="button">
+					</lightning-radio-group>
+				</lightning-layout-item>
+			</lightning-layout>
+			<lightning-layout
+				vertical-align="end"
+				class="slds-var-m-bottom_small"
+			>
+				<lightning-layout-item size="6">
+					<lightning-helptext content={helpScopeOfWork} class="helpText margin80"></lightning-helptext>
+					<lightning-combobox
+						name="scopeOfWork"
+						label="Scope of work"
+						value={scopeOfWorkValue}
+						options={scopeOfWorkOptions}
+						onchange={handleScopeOfWork}>
+					</lightning-combobox>
+				</lightning-layout-item>
+				<lightning-layout-item size="6">
+					<lightning-helptext content={helpPageSize} class="helpText margin55"></lightning-helptext>
+					<lightning-input
+						type="number"
+						label="Page size"
+						value={pageSize}
+						onchange={handlePageSize}
+						max="1000"
+						min="1"
+						message-when-range-overflow="Max page size is 1000"
+						message-when-range-underflow="Min page size is 1"
+					></lightning-input>
+				</lightning-layout-item>
+			</lightning-layout>
+
+			<lightning-layout
+				vertical-align="end"
+				class="slds-var-m-bottom_small"
+			>
+				<lightning-layout-item class="slds-var-p-left_xx-small">
+					<lightning-button
+						label="Search"
+						onclick={handleSearchClick}
+					></lightning-button>
+				</lightning-layout-item>
+			</lightning-layout>
+			<template if:true={isMoreOnePage}>
+				<p class="slds-text-align_center slds-var-m-vertical_medium content">
+					Page {page}
+				</p>
+			</template>
+			<div class="slds-grid slds-wrap slds-grid_vertical-stretch">
+				<template for:each={organizations} for:item="organization" for:index="index">
+					<div key={organization.ein} class="slds-col slds-size_1-of-2 div-cell" onclick={handleCellClick} id={index}>
+						<div class="slds-grid slds-wrap">
+							<div class="slds-col slds-size_1-of-2 slds-text-title_bold">Name:</div><div class="slds-col slds-size_1-of-2">{organization.charityName}</div>
+							<div class="slds-col slds-size_1-of-2 slds-text-title_bold">EIN:</div><div class="slds-col slds-size_1-of-2">{organization.ein}</div>
+							<div class="slds-col slds-size_1-of-2 slds-text-title_bold">Asset amount:</div><div class="slds-col slds-size_1-of-2">{organization.irsClassification.assetAmount}</div>
+							<div class="slds-col slds-size_1-of-2 slds-text-title_bold">Classification:</div><div class="slds-col slds-size_1-of-2">{organization.irsClassification.classification}</div>
+							<div class="slds-col slds-size_1-of-2 slds-text-title_bold">Status:</div><div class="slds-col slds-size_1-of-2">{organization.irsClassification.exemptOrgStatus}</div>
+							<div class="slds-col slds-size_1-of-2 slds-text-title_bold">Income amount:</div><div class="slds-col slds-size_1-of-2">{organization.irsClassification.incomeAmount}</div>
+							<div class="slds-col slds-size_1-of-2 slds-text-title_bold">Rulling date:</div><div class="slds-col slds-size_1-of-2">{organization.irsClassification.rulingDate}</div>
+							<div class="slds-col slds-size_1-of-2 slds-text-title_bold">Accounting period:</div><div class="slds-col slds-size_1-of-2">{organization.irsClassification.accountingPeriod}</div>
+							<div class="slds-col slds-size_1-of-2 slds-text-title_bold">City:</div><div class="slds-col slds-size_1-of-2">{organization.mailingAddress.city}</div>
+							<div class="slds-col slds-size_1-of-2 slds-text-title_bold">Country:</div><div class="slds-col slds-size_1-of-2">{organization.mailingAddress.country}</div>
+							<div class="slds-col slds-size_1-of-2 slds-text-title_bold">Code:</div><div class="slds-col slds-size_1-of-2">{organization.mailingAddress.postalCode}</div>
+							<div class="slds-col slds-size_1-of-2 slds-text-title_bold">State or province:</div><div class="slds-col slds-size_1-of-2">{organization.mailingAddress.stateOrProvince}</div>
+							<div class="slds-col slds-size_1-of-2 slds-text-title_bold">Street adress:</div><div class="slds-col slds-size_1-of-2">{organization.mailingAddress.streetAddress1}</div>
+						</div>
+					</div>
+				</template>
+			</div>
+			<template if:true={isMoreOnePage}>
+				<c-paginator
+					class="slds-show slds-is-relative"
+					onprevious={handlePrevious}
+					onnext={handleNext}
+				></c-paginator>
+			</template>
+		</div>
+		<template if:false={isLoaded}>
+			<lightning-spinner alternative-text="Loading"></lightning-spinner>
+		</template>
+	</lightning-card>
+</template>
