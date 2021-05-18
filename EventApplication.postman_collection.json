@@ -1,0 +1,410 @@
+{
+	"info": {
+		"_postman_id": "58d6a126-adeb-4946-84a1-79ecf82a4226",
+		"name": "EventApplication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "OAuth Username Code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"key": "Content-Length",
+						"value": "0",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "authorization_code",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "3MVG9z6NAroNkeMnEZ5bvfnrGJy6wMEg0gUyelPs1Ahl4c2y54ysi8IlMVUJtfMua_usZ.BsNK1.Qzy1rRFv_",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "6325D8CA28BEFD9D7E02A407F261472D2D3242E5A61FC7C13679C8E80C8D6DB1",
+							"type": "text"
+						},
+						{
+							"key": "redirect_uri",
+							"value": "https://login.salesforce.com/",
+							"type": "text"
+						},
+						{
+							"key": "code",
+							"value": "aPrx_QCbi06NF5Y9x2Lp7oyYmp2cev7oL3OEPW96fPr9ah3NW0podeekne51bhNaaipNBbwsgA%3D%3D",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://momentum-page-1648-dev-ed.cs73.my.salesforce.com/services/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"momentum-page-1648-dev-ed",
+						"cs73",
+						"my",
+						"salesforce",
+						"com"
+					],
+					"path": [
+						"services",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OAuth Username Password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = pm.response.json();",
+							"var id = jsonData.id.split('/');",
+							"pm.environment.set(\"_accessToken\", jsonData.access_token);",
+							"pm.environment.set(\"_endpoint\", jsonData.instance_url);",
+							"pm.environment.set(\"_userId\", id.pop());",
+							"pm.environment.set(\"_orgId\", id.pop());"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "password",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "3MVG9z6NAroNkeMnEZ5bvfnrGJy6wMEg0gUyelPs1Ahl4c2y54ysi8IlMVUJtfMua_usZ.BsNK1.Qzy1rRFv_",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "6325D8CA28BEFD9D7E02A407F261472D2D3242E5A61FC7C13679C8E80C8D6DB1",
+							"type": "text"
+						},
+						{
+							"key": "username",
+							"value": "test-f7b0uuvxwgn2@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": ".ujg(A3<(8\"2[G9A",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://momentum-page-1648-dev-ed.cs73.my.salesforce.com/services/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"momentum-page-1648-dev-ed",
+						"cs73",
+						"my",
+						"salesforce",
+						"com"
+					],
+					"path": [
+						"services",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get attendee by Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 00D6D0000001TyO!AQgAQLLeiKG2XumTChSndWTYCmDzK6yXHnLt46budfSGBrOa.h8VYp4XBfddvyDjKFTzQUnlvW33N6TZnqP08EKOVZovM90m",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://momentum-page-1648-dev-ed.cs73.my.salesforce.com/services/apexrest/api/v1/attendees?Id=a046D0000041XasQAE",
+					"protocol": "https",
+					"host": [
+						"momentum-page-1648-dev-ed",
+						"cs73",
+						"my",
+						"salesforce",
+						"com"
+					],
+					"path": [
+						"services",
+						"apexrest",
+						"api",
+						"v1",
+						"attendees"
+					],
+					"query": [
+						{
+							"key": "Id",
+							"value": "a046D0000041XasQAE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all events",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 00D6D0000001TyO!AQgAQLLeiKG2XumTChSndWTYCmDzK6yXHnLt46budfSGBrOa.h8VYp4XBfddvyDjKFTzQUnlvW33N6TZnqP08EKOVZovM90m",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://momentum-page-1648-dev-ed.cs73.my.salesforce.com/services/apexrest/api/v1/events",
+					"protocol": "https",
+					"host": [
+						"momentum-page-1648-dev-ed",
+						"cs73",
+						"my",
+						"salesforce",
+						"com"
+					],
+					"path": [
+						"services",
+						"apexrest",
+						"api",
+						"v1",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get events by Id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 00D6D0000001TyO!AQgAQLLeiKG2XumTChSndWTYCmDzK6yXHnLt46budfSGBrOa.h8VYp4XBfddvyDjKFTzQUnlvW33N6TZnqP08EKOVZovM90m",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://momentum-page-1648-dev-ed.cs73.my.salesforce.com/services/apexrest/api/v1/events?Id=a006D000005aAxtQAE",
+					"protocol": "https",
+					"host": [
+						"momentum-page-1648-dev-ed",
+						"cs73",
+						"my",
+						"salesforce",
+						"com"
+					],
+					"path": [
+						"services",
+						"apexrest",
+						"api",
+						"v1",
+						"events"
+					],
+					"query": [
+						{
+							"key": "Id",
+							"value": "a006D000005aAxtQAE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register Attendee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 00D6D0000001TyO!AQgAQPCOIAs1SghJVzIUp3BM7s9hwtsrAxUd8CmCLWwD3FbcueAMHWyYJGYiHu7ZY3vXjaNDV.klQ.O7itFtJCpFZ9H1otM5",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"a046D0000041XasQAE\",\r\n  \"registrationStatus\": \"Registered\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://momentum-page-1648-dev-ed.cs73.my.salesforce.com/services/apexrest/api/v1/attendees",
+					"protocol": "https",
+					"host": [
+						"momentum-page-1648-dev-ed",
+						"cs73",
+						"my",
+						"salesforce",
+						"com"
+					],
+					"path": [
+						"services",
+						"apexrest",
+						"api",
+						"v1",
+						"attendees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Attendee",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 00D6D0000001TyO!AQgAQAtBvggZQHrOFi4xc1V8zB0ViYSP8RPhzMmt804N1T6_XjWsX3eeW7UvWh7Krw.vIHU1eqSOB4G7lEyjmnfA1Fh3H2B.",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"sorov@gmail.com\",\r\n    \"registrationStatus\": \"Registered\",\r\n    \"event\": \"a006D000005aAxtQAE\",\r\n    \"lastName\": \"Klachko\",\r\n    \"firstName\": \"Nadezda\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://momentum-page-1648-dev-ed.cs73.my.salesforce.com/services/apexrest/api/v1/attendees",
+					"protocol": "https",
+					"host": [
+						"momentum-page-1648-dev-ed",
+						"cs73",
+						"my",
+						"salesforce",
+						"com"
+					],
+					"path": [
+						"services",
+						"apexrest",
+						"api",
+						"v1",
+						"attendees"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get events parameters (pageSize, pageNumber, startDate, endDate, status) Also exost parameters (name, provider, Id)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer 00D6D0000001TyO!AQgAQAtBvggZQHrOFi4xc1V8zB0ViYSP8RPhzMmt804N1T6_XjWsX3eeW7UvWh7Krw.vIHU1eqSOB4G7lEyjmnfA1Fh3H2B.",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "https://momentum-page-1648-dev-ed.cs73.my.salesforce.com/services/apexrest/api/v1/events?pageSize=1&pageNumber=2&startDate=2018-10-10&endDate=2022-10-04&status=Active",
+					"protocol": "https",
+					"host": [
+						"momentum-page-1648-dev-ed",
+						"cs73",
+						"my",
+						"salesforce",
+						"com"
+					],
+					"path": [
+						"services",
+						"apexrest",
+						"api",
+						"v1",
+						"events"
+					],
+					"query": [
+						{
+							"key": "pageSize",
+							"value": "1"
+						},
+						{
+							"key": "pageNumber",
+							"value": "2"
+						},
+						{
+							"key": "startDate",
+							"value": "2018-10-10"
+						},
+						{
+							"key": "endDate",
+							"value": "2022-10-04"
+						},
+						{
+							"key": "status",
+							"value": "Active"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
